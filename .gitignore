@@ -215,3 +215,10 @@ models/*.pt
 models/*.pth
 models/*.keras
 models/*.pkl
+
+keras_tuner_dir/
+msft_lstm_tuning/
+msft_3feat_opt/
+*.h5
+*.keras
+__pycache__/
