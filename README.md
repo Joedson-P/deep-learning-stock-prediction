@@ -1,21 +1,23 @@
-# Deep Learning para Previsão de Ativos (MSFT)
+# Previsão de Preços de Ações (MSFT) com Deep Learning
 
-## Objetivo do Projeto
-Este projeto utiliza Redes Neurais Recorrentes (RNN) do tipo **LSTM (Long Short-Term Memory)** para prever o preço de fechamento das ações da Microsoft (MSFT). O foco é capturar dependências temporais não-lineares que modelos estatísticos tradicionais muitas vezes não conseguem identificar.
-
-## Arquitetura do Modelo
-O modelo foi construído utilizando a biblioteca **TensorFlow/Keras** com a seguinte estrutura:
-* **Camada de Entrada:** Configurada para janelas temporais (Lookback) de 60 dias.
-* **Stacked LSTM:** Duas camadas LSTM com 50 unidades cada para capturar padrões complexos.
-* **Regularização:** Camadas de **Dropout (20%)** para evitar o overfitting durante o treino.
-* **Camada de Saída:** Camada Dense para regressão do preço final.
+Este projeto utiliza redes neurais recorrentes do tipo **LSTM (Long Short-Term Memory)** para prever o preço de fechamento das ações da Microsoft (MSFT).
 
 ## Metodologia
-1. **Pré-processamento:** Normalização dos dados utilizando `MinMaxScaler` (escala 0 a 1).
-2. **Janelamento:** Transformação da série temporal em um problema de aprendizado supervisionado (X = últimos 60 dias, y = próximo dia).
-3. **Treinamento:** Utilização do otimizador **Adam** e função de perda **MSE**. Implementação de **Early Stopping** para eficiência computacional.
-4. **Avaliação:** Inversão da escala para dólares (USD) e cálculo do erro médio.
+Foram testadas diversas abordagens para identificar a mais eficaz na predição de séries temporais financeiras:
+1. **Baseline Univariado:** Utilizando apenas o histórico de preços.
+2. **Multivariado:** Inclusão de indicadores técnicos (Médias Móveis MA7, MA21 e Volume).
+3. **Diferenciação (Modelo Vencedor):** Predição da variação diária ($\Delta P$) em vez do preço absoluto, visando contornar a não-estacionariedade dos dados.
 
-## Resultados Alcançados
-* **RMSE (Root Mean Squared Error):** 7.38 USD
-* O modelo demonstrou alta capacidade de seguir a tendência do ativo, mantendo a estabilidade mesmo em períodos de volatilidade.
+## Resultados Finais
+O modelo baseado em diferenças superou significativamente as abordagens tradicionais de preço cheio.
+
+| Métrica | Resultado |
+| :--- | :--- |
+| **RMSE** | **4.78 USD** |
+| **MAE** | **3.58 USD** |
+
+## Tecnologias Utilizadas
+* Python 3.12.10
+* TensorFlow / Keras 3
+* Pandas, NumPy e Scikit-learn
+* Matplotlib (Visualização de dados)
